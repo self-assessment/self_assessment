@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function self_assessment_help($path, $arg) {
+    return SelfAssessmentHelp::index($path, $arg);
+}
+
+/**
+ * Implements hook_menu().
+ */
+function self_assessment_menu() {
+  $items = [];
+
+  $items['admin/quiz/self_assessment'] = array(
+    'title' => 'Self Assessment',
+    'description' => 'Configure Self Assessments',
+    'page callback' => 'SelfAssessmentAdminOverview::index',
+    'access arguments' => array('administer quiz configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/quiz/self_assessment/import'] = array(
+    'title' => 'Import',
+    'description' => 'Import new Self Assessments from XML',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['self_assessment_admin_import_form'],
+    'access arguments' => array('administer quiz configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function self_assessment_admin_paths() {
+  return array(
+    'node/*/self_assessment' => TRUE,
+    'node/*/self_assessment/*' => TRUE,
+  );
+}
+
+function self_assessment_admin_import_form($form, &$form_state) {
+    return SelfAssessmentAdminImport::form($form, $form_state);
+}
+
+function self_assessment_admin_import_form_submit($form, &$form_state) {
+    return SelfAssessmentAdminImport::submit($form, $form_state);
+}
+
+function self_assessment_admin_import_form_validate($form, &$form_state) {
+    return SelfAssessmentAdminImport::validate($form, $form_state);
+}

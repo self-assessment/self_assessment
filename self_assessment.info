@@ -1,0 +1,13 @@
+name = Self Assessment
+package = Quiz addon
+description = Simple module to enable self assessments on your site
+core = 7.x
+php = 7.0
+dependencies[] = quiz
+dependencies[] = quiz:scale
+dependencies[] = core:taxonomy
+; configure = admin/config/self_assessments
+
+files[] = includes/help.inc
+files[] = includes/admin/import.inc
+files[] = includes/admin/overview.inc

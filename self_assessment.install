@@ -1,0 +1,26 @@
+<?php
+
+/**
+* Implements hook_install().
+*/
+function self_assessment_install() {
+    // show success message?
+}
+
+/**
+ * add information to quiz
+ */
+function self_assessment_update_7001() {
+    db_add_field(
+        'quiz_node_properties',
+        'self_assessment',
+        [
+            'type' => 'int',
+            'size' => 'tiny',
+            'unsigned' => TRUE,
+            'not null' => TRUE,
+            'default' => 0,
+            'description' => 'Boolean indicating whether a quiz is a self assessment.',
+        ]
+    );
+}
